@@ -11,7 +11,7 @@ use std::collections::{HashMap};
 use std::collections::hash_map::Entry;
 use std::net::{SocketAddrV4,  Ipv4Addr};
 
-use enet_client;
+use crate::enet_client;
 
 pub fn initialize() {
     if unsafe {enet_initialize()} < 0 {

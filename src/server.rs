@@ -5,7 +5,7 @@ use std::collections::hash_map::Entry;
 use std::net::{UdpSocket, SocketAddr};
 use std::time::{Duration, SystemTime};
 
-use client::Client;
+use crate::client::Client;
 
 pub struct Server {
     clients: HashMap<SocketAddr, Client>,

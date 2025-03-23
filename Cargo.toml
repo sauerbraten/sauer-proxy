@@ -2,10 +2,11 @@
 name = "sauer-proxy"
 version = "0.2.0"
 authors = ["AngrySnout <splintersal@gmail.com>"]
+edition = "2021"
 
 [dependencies]
-argparse = "0.2.1"
-enet-sys = "0.2.3"
+argparse = "0.2.2"
+enet-sys = "1.0.4"
 
 [[bin]]
 name = "sauer-proxy"

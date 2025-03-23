@@ -44,7 +44,7 @@ impl ENetClient {
             if client_host == 0 as *mut ENetHost {
                 panic!("Could not create client host");
             }
-            let conn_peer = enet_host_connect(client_host, &addr, 3, 0); 
+            let conn_peer = enet_host_connect(client_host, &addr, 3, 0);
             enet_host_flush(client_host);
             ENetClient {
                 client_peer,
@@ -56,7 +56,7 @@ impl ENetClient {
             }
         }
     }
-    
+
     pub fn handle_incoming(&mut self, chan: u8, packet: *mut ENetPacket) {
         unsafe {
             if self.connected && packet != 0 as *mut ENetPacket && (*packet).data != 0 as *mut u8 {
@@ -67,7 +67,7 @@ impl ENetClient {
             }
         }
     }
-    
+
     pub fn slice(&mut self, time: SystemTime, delay: u64) {
         let mut event: ENetEvent = ENetEvent {
             channelID: 0,
@@ -83,13 +83,13 @@ impl ENetClient {
                         self.connected = true;
                         enet_peer_throttle_configure(self.conn_peer, 5000, 2, 2);
                         enet_host_bandwidth_limit(self.client_host, 0*1024, 0*1024);
-                        
+
                         if self.forward_ip {
                             let mut ip = (*self.client_peer).address.host;
                             ip = ip + 1;
                             // N_P1X_SETIP ip (= 2 x putint())
                             let buf: [u8; 8] = [0x80, N_P1X_SETIP as u8, (N_P1X_SETIP>>8) as u8, 0x81, ip as u8, (ip>>8) as u8, (ip>>16) as u8, (ip>>24) as u8];
-                            let mut packet = enet_packet_create(buf.as_ptr() as *const c_void, buf.len(), 1);
+                            let packet = enet_packet_create(buf.as_ptr() as *const c_void, buf.len(), 1);
                             (*packet).flags = 1;
                             enet_peer_send(self.conn_peer, 1, packet);
                             if (*packet).referenceCount==0 {
@@ -141,7 +141,7 @@ impl ENetClient {
             }
         }
     }
-    
+
     pub fn disconnect(&mut self) {
         unsafe {
             if self.connected {
